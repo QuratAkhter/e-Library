@@ -12,7 +12,7 @@ async function fetchApi(query) {
     try {
         let response = await fetch(url + query)
         let result = await response.json();
-        console.log(result)
+        
 
         for (let i = 0; i < result.items.length; i++) {
             let title = result.items[i].volumeInfo.title;
@@ -31,7 +31,6 @@ async function fetchApi(query) {
                 BookList.push({ title, author, coverImage, isbn })
             }
         }
-        console.log('Beyond For loop')
         displayBooks(BookList)
     } catch (error) {
         console.error(error);
@@ -76,7 +75,6 @@ function onSearch() {
 
     let input = document.querySelector('.input-bar')
     let query = input.value
-    console.log(query)
     if (query) {
         fetchApi(query)
     }
