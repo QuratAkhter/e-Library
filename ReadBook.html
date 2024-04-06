@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Book</title>
+    <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+    <style>
+      #viewerCanvas {
+    width: 100%; /* Take up full width of the container */
+    max-width: 100%; /* Ensure it doesn't exceed the container's width */
+    height: 97vh; /* Take up full height of the viewport */
+    max-height: 99vh; /* Ensure it doesn't exceed the viewport's height */
+}
+    </style>
+</head>
+<body>
+    <div id="viewerCanvas"></div>
+
+    <script>
+        // Parse the ISBN from the URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const isbn = urlParams.get('isbn');
+
+        google.books.load({'language':'en'})
+
+        function alertNotFound(){
+            alert('Book Not Found')
+        }
+
+        // Load the book into the viewer canvas
+        function loadBook() {
+            let viewer = new google.books.DefaultViewer(
+                document.getElementById('viewerCanvas')
+            );
+            let val = 'ISBN' + isbn;
+            console.log(val);
+            viewer.load(val, alertNotFound);
+        }
+
+        // Call the loadBook function after the Google Books API is loaded
+        google.books.setOnLoadCallback(loadBook);
+    </script>
+</body>
+</html>
